@@ -1,0 +1,397 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>抽奖页面</title>
+
+<style>
+	html{
+		width:100%;
+		height:100%;
+		overflow:hidden;
+		font-style:sans-serif;
+	}
+	body{
+		width:100%;
+		height:100%;
+		font-family: 'Open Sans'  ,  sans-serif;
+		margin: 0;
+		//background-image: url(images/background/673958.jpg);
+	}
+	.top{
+	    /* 设置宽度高度背景颜色 */
+	    width: 5%; /*高度改为自动高度*/
+	    height:100%;
+	    margin-left: 0;
+	    background:rgb(189, 181, 181);
+	    position: fixed; /*固定在左部*/
+	    left: 0;/*离顶部的距离为0*/
+	    margin-bottom: 5px;
+	}
+	.top ul{
+	    /* 清除ul标签的默认样式 */
+	    width: auto;/*宽度也改为自动*/
+	    list-style-type: none;
+	    white-space:nowrap;
+	    overflow: hidden;
+	    margin-left: 5%;
+	    /* margin-top: 0;          */
+	    padding: 0;
+	
+	}
+	.top li {
+	   /* float:left;  使li内容横向浮动，即横向排列  */
+	    margin-top:5%;  /* 两个li之间的距离*/
+	    position: relative;
+	    overflow: hidden;
+	}
+	
+	.top li a{
+	   /* 设置链接内容显示的格式*/
+	    display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
+	    color:white;
+	    text-align: center;
+	    padding: 3px;
+	    overflow: hidden;
+	    text-decoration: none; /* 去除下划线 */
+	    
+	}
+	.top li a:hover{
+	    /* 鼠标选中时背景变为黑色 */
+	    background-color: #111;
+	}
+	.top ul li ul{
+	    /* 设置二级菜单 */
+	    margin-left: -0.2px;
+	    background:rgb(189, 181, 181);
+	    position: relative;
+	    display: none; /* 默认隐藏二级菜单的内容 */
+	
+	}
+	.top ul li ul li{
+	    /* 二级菜单li内容的显示 */
+	    
+	    float:none;
+	    text-align: center;
+	}
+	.top ul li:hover ul{
+	    /* 鼠标选中二级菜单内容时 */
+	    display: block;
+	}
+	.black_overlay{ 
+            display: none; 
+            position: absolute; 
+            top: 0%; 
+            left: 0%; 
+            width: 100%; 
+            height: 100%; 
+            background-color: black; 
+            z-index:1001; 
+            -moz-opacity: 0.8; 
+            opacity:.80; 
+            filter: alpha(opacity=88); 
+        } 
+        .white_content { 
+            display: none; 
+            position: absolute; 
+            top: 25%; 
+            left: 25%; 
+            width: 55%; 
+            height: 55%; 
+            padding: 20px; 
+            border: 10px solid orange; 
+            background-color: white; 
+            z-index:1002; 
+            overflow: auto; 
+        } 
+		#light{
+			/*background-image: url(images/background/绫波丽2.jpg);*/
+			background: white;
+			font-size: 20px;letter-spacing: 5px;
+		}
+		#setPage1{
+			
+		}
+		#lottBox{
+			position: absolute;
+			overflow: hidden;
+			//background-image: url(images/background/lottoryFace1.png);
+			top: 25%; 
+			left: 25%; 
+			width: 55%; 
+			height: 55%; 
+			padding: 20px; 
+			border: 10px solid orange;
+		}
+		#boxShow{
+			margin:auto;
+			width:660px;
+			font-size:66px;
+			height:94px;
+			line-height:94px;
+			overflow:hidden;
+			color:#138eee;
+			text-align:center;
+			padding:0 30px;
+			margin-top:100px;
+		}
+		#btLott{
+			margin:auto;
+			width:200px;
+			text-align:center;
+			margin-top:50px;
+			color:#fff;
+			font-size:25px;
+			line-height:28px;
+			cursor:pointer;
+		}
+		#winMen{
+			position: absolute;
+			overflow: scroll;
+			/*background:palevioletred;
+			background-image: url(images/background/lottoryFace1.png);*/
+			top: 25%;
+			left: 5%; 
+			width: 15%; 
+			height: 55%; 
+			padding: 5px; 
+			border: 5px solid orange;
+		}
+}
+</style>
+
+
+<script type="text/javascript">
+	
+	function openDialog(){
+	    document.getElementById('light').style.display='block';
+	    document.getElementById('fade').style.display='block';
+	}
+	function closeDialog(){
+	    document.getElementById('light').style.display='none';
+	    document.getElementById('fade').style.display='none';
+		
+	}
+	function resureSet(){
+		//nameSetting=document.getElementsById("nameSet1");
+		//alert("成功");
+		typeNum=document.getElementById("priceNST").value;
+		//alert("成功");
+		totalPrice=0;
+		//var priceLevels=new Array();
+		//只能设置最多四等奖项
+		for(var i=0;i<typeNum;i++){
+			switch(i){
+				case 0:
+					priceOne=parseInt(document.getElementById("yidengjiang").value)
+					//priceOne=document.getElementById("yidengjiang").innerHTML;
+					totalPrice=totalPrice+priceOne;
+					//priceLevels.push(document.getElementById("yidengjiang").value);
+					break;
+				case 1:
+					priceTwo=parseInt(document.getElementById("erdengjiang").value);
+					totalPrice=totalPrice+priceTwo;
+					//priceLevels.push(document.getElementById("erdengjiang").value);
+					break;
+				case 2:
+					priceThr=parseInt(document.getElementById("sandengjiang").value);
+					totalPrice+=priceThr;
+					//priceLevels.push(document.getElementById("sandengjiang").value);
+					break;
+				case 3:
+					priceFor=parseInt(document.getElementById("sidengjiang").value);
+					totalPrice+=priceFor;
+					//priceLevels.push(document.getElementById("sidengjiang").value);
+					break;
+			}
+		}
+		//将抽奖姓名读出到namelist
+		/*
+		myFunction();
+		//alert("进来");
+		namelist.length=0;
+		for(var i=0;i<fileExcel.table.length;i++){
+			alert("进来");
+			namelist.push(fileExcel.table[i]['姓名']);
+		}
+		
+		//alert(fileExcel.table.length);
+		*/
+	   alert("确定");
+	}
+	
+	function upload() {
+			var inputObj=document.createElement('input');
+			inputObj.setAttribute('id','file');
+			inputObj.setAttribute('type','file');
+			inputObj.setAttribute('name','file');
+			inputObj.setAttribute("style",'visibility:hidden');
+			document.body.appendChild(inputObj);
+			inputObj.value;
+			inputObj.click();
+			console.log(inputObj);
+	}
+	function doit(){
+		var bt=window.document.getElementById("btLott");
+		
+		if(mytime==null){
+			bt.innerHTML="停止";
+			numNow++;
+			if(numNow>totalPrice){
+				window.document.getElementById("boxShow").innerHTML="已经抽完";
+				clearTimeout(mytime);
+				mytime=null;
+				return;
+			}
+			showName();
+		}else{
+			bt.innerHTML="开始抽奖";
+			clearTimeout(mytime);
+			mytime=null;
+	
+			var Node=document.getElementById("winMen");
+			var addNode=document.createElement("div");
+			var addNode1=document.createElement("div");
+			if(numNow<=(totalPrice-priceOne-priceTwo-priceThr)){
+				addNode1.innerHTML="四等奖:";
+				addNode.innerHTML=document.getElementById("boxShow").innerHTML;
+			}else if(numNow<=(totalPrice-priceOne-priceTwo)){
+				addNode1.innerHTML="三等奖:";
+				addNode.innerHTML=document.getElementById("boxShow").innerHTML;
+			}else if(numNow<=(totalPrice-priceOne)){
+				addNode1.innerHTML="二等奖:";
+				addNode.innerHTML=document.getElementById("boxShow").innerHTML;
+			}else if(numNow<=(totalPrice)){
+				addNode1.innerHTML="一等奖:";
+				addNode.innerHTML=document.getElementById("boxShow").innerHTML;
+			}
+			//addNode.innerHTML=document.getElementById("boxShow").innerHTML;
+			Node.appendChild(addNode1);
+			Node.appendChild(addNode);
+			namelist.splice(numDelete,1);
+		}
+	}
+	function showName(){
+		var box=window.document.getElementById("boxShow");
+		var num=Math.floor((Math.random()*1000))%namelist.length;//random*(根据人数具体来改变)
+		numDelete=num;
+		box.innerHTML=namelist[num];
+		mytime=setTimeout("showName()",10);
+	}
+	
+	//记录设置信息
+	var nameSetting="默认";
+	var typeNum=4;
+	var priceOne=1;
+	var priceTwo=2;
+	var priceThr=3;
+	var priceFor=4;
+	var totalPrice=10;
+	var numNow=0;
+	var numDelete;//被删除的数组元素序号
+	
+	
+	var namelist=["张飞","关羽","曹植","曹操","吕布","诸葛亮","周瑜","小乔","王一","李二","唐三","冯四","宋五","马六","貂蝉","橙橙"];
+	var mytime=null;
+	var showN=document.getElementById("winMen");
+</script>
+
+
+</head>
+<body>
+	
+	<div class="top">
+                   <center> 
+                    <ul>
+                    <li><a href = "JavaScript:void(0)" onclick = "openDialog()">设置</a></li>
+                    <li><a href="choiceLottory/index.html">参加抽奖</a></li>
+                    <li><a href="#">购买会员</a></li>
+                    <li><a href="#"><b>联系我们</b></a></li>
+                    <li><a href="#">团队介绍</a></li>
+                    <li>
+                        <a href="#">商务合作</a>
+                        <ul>
+                            <li><a href="#">二级菜单</a></li>
+                            <li><a href="#">二级菜单</a></li>
+                        </ul>
+                    </li>        
+                      </ul>
+                    </center>      
+	</div>
+	<div id="winMen">
+		
+	</div>
+	<div id="light" class="white_content">
+			<div id="setPage1">
+				<center>
+					方案设置: <input type="text" id="nameSet1" /><br />
+					奖励设置: <input type="number" id="priceNST" min="2" max="4"/><!--
+					&nbsp奖励设置: <input type="number" list="itemLists" id="priceNST"/>
+					<datalist id="itemLists">
+						<option> 2 </option>
+						<option> 3 </option>
+						<option> 4 </option>
+						<option> 5 </option>
+						<option> 6 </option>
+					</datalist>-->
+					<br />
+					&nbsp&nbsp抽奖模式： 直接<input type="checkbox" />  婉转<input type="checkbox" /><br />
+					  一等奖:<input type="number" id="yidengjiang" required="required" placeholder="一等奖"></input>
+					  <br />二等奖:<input type="number" id="erdengjiang" required="required" placeholder="二等奖"></input>
+					  <br />三等奖:<input type="number" id="sandengjiang" required="required" placeholder="三等奖"></input>
+					  <br />四等奖:<input type="number" id="sidengjiang" required="required" placeholder="四等奖"></input>
+					  <br />
+					  <button type="button" onclick="upload()">上传名单   </button><br />
+					
+					  <br />
+					  <button type="button" onclick="resureSet()">确定信息</button><br />
+					<a href = "javascript:void(0)" onclick = "closeDialog()">点这里关闭本窗口</a>
+				</center>
+			</div>
+        </div> 
+	<div id="lottBox">
+		<div id="boxShow">
+			准备开始
+		</div>
+		<div id="btLott" onclick="doit()">开始抽奖</div>
+		<!--<button type="button" id="btLott" onclick="doit()">开始抽奖</button>-->
+	</div>
+	
+<!--
+<script>
+"use strict";
+		function openDialog(){
+            document.getElementById('light').style.display='block';
+            document.getElementById('fade').style.display='block'
+        }
+        function closeDialog(){
+            document.getElementById('light').style.display='none';
+            document.getElementById('fade').style.display='none'
+        }
+
+
+var body = document.body;
+var tilted = false;
+var toggleTilt = function () {
+    tilted = !tilted;
+    if (tilted)
+        body.classList.add('details');
+    else
+        body.classList.remove('details');
+};
+body.addEventListener('click', toggleTilt);
+body.addEventListener('touchstart', toggleTilt);
+if (location.pathname.match(/fullcpgrid/i))
+    setTimeout(toggleTilt, 1000);
+</script>
+-->
+
+
+</div>
+		<canvas id="canvas"></canvas>
+		<script src='js/backgroundjs/js/delaunator.min.js'></script>
+		<script  src="js/backgroundjs/js/index.js"></script>
+</body>
+
+</html>
+

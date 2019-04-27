@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>抽奖页面</title>
+
+<style>
+	html{
+		width:100%;
+		height:100%;
+		overflow:hidden;
+		font-style:sans-serif;
+	}
+	body{
+		width:100%;
+		height:100%;
+		font-family: 'Open Sans'  ,  sans-serif;
+		margin: 0;
+		//background-image: url(images/background/673958.jpg);
+	}
+	.top{
+	    /* 设置宽度高度背景颜色 */
+	    width: 5%; /*高度改为自动高度*/
+	    height:100%;
+	    margin-left: 0;
+		background: #006699;
+	    /*background:rgb(189, 181, 181);*/
+	    position: fixed; /*固定在左部*/
+	    left: 0;/*离顶部的距离为0*/
+	    margin-bottom: 5px;
+	}
+	.top ul{
+	    /* 清除ul标签的默认样式 */
+	    width: auto;/*宽度也改为自动*/
+	    list-style-type: none;
+	    white-space:nowrap;
+	    overflow: hidden;
+	    margin-left: 5%;
+	    /* margin-top: 0;          */
+	    padding: 0;
+	
+	}
+	.top li {
+	   /* float:left;  使li内容横向浮动，即横向排列  */
+	    margin-top:5%;  /* 两个li之间的距离*/
+	    position: relative;
+	    overflow: hidden;
+	}
+	
+	.top li a{
+	   /* 设置链接内容显示的格式*/
+	    display: block; /* 把链接显示为块元素可使整个链接区域可点击 */
+	    color:white;
+	    text-align: center;
+	    padding: 3px;
+	    overflow: hidden;
+	    text-decoration: none; /* 去除下划线 */
+	    
+	}
+	.top li a:hover{
+	    /* 鼠标选中时背景变为黑色 */
+	    background-color: #111;
+	}
+	.top ul li ul{
+	    /* 设置二级菜单 */
+	    margin-left: -0.2px;
+		background: #006699;/*
+	    background:rgb(189, 181, 181);*/
+	    position: relative;
+	    display: none; /* 默认隐藏二级菜单的内容 */
+	
+	}
+	.top ul li ul li{
+	    /* 二级菜单li内容的显示 */
+	    
+	    float:none;
+	    text-align: center;
+	}
+	.top ul li:hover ul{
+	    /* 鼠标选中二级菜单内容时 */
+	    display: block;
+	}
+	/* scrolltext */
+	.scrolltext{
+		position: absolute;
+		top: 10%;
+		right: 20%;
+		padding:57px 15px 0 14px;
+		background:url(mainFaceSourse/images/h1-bg02.gif) no-repeat;
+		width:189px;
+		height:500px;
+		overflow:hidden;
+		/*margin:20px auto 0 auto;*/
+	}
+	.scrolltext ol li{
+		padding-left:0px;
+		width:185px;
+		height:30px;
+		font-size:13px;
+		line-height:25px;
+		border-bottom:2px solid #fff;
+	}
+	.scrolltext ol li a{color: #31B0D5;display:block;width:172px;white-space:nowrap;text-overflow:ellipsis;-o-text-overflow:ellipsis;overflow: hidden;}
+	.scrolltext ol li a:hover{color:greenyellow;text-decoration:none;}
+	.scrolltext .part{width:100%;padding-top:20px;}
+	.scrolltext .part span{margin-left:26px;cursor:pointer;}
+	#breakNews{padding:0 0 0px 2px;}
+	#breakNews .list6{height:330px;overflow:hidden;width:100%;}
+	/*#choujiangHead{
+		position: absolute;
+		top: 5%;
+		right: 23%;
+		font-size: 25px;
+	}*/
+	#choujiangHead span{
+		font-size: 25px;
+		color: coral;
+	}
+	a:link{
+			color:skyblue;
+		}
+		a:visited{
+			color:green;
+		}
+		a:hover{
+			color:palevioletred;
+		}
+
+
+#proTable{
+	position: absolute;
+	top: 10%;
+	left: 10%;
+	overflow: scroll;
+	width: 650px;
+	height: 600px;
+}
+.ProItem{
+	float: left;
+	width: 200px;
+	height: 200px;
+}
+.ProItem:hover{
+	font-size: 30px;
+}
+.proPic:hover{
+	background: greenyellow;
+}
+.proPic{
+	width: 100px;
+	height: 100px;
+}
+#proTable::-webkit-scrollbar {
+ width: 8px;
+}
+#proTable::-webkit-scrollbar-track {
+ /*background-color:darkblue;*/
+ -webkit-border-radius: 2em;
+ -moz-border-radius: 2em;
+ border-radius:2em;
+}
+#proTable::-webkit-scrollbar-thumb {
+ background-color:lightskyblue;
+ -webkit-border-radius: 2em;
+ -moz-border-radius: 2em;
+ border-radius:2em;
+}
+</style>
+
+<script>
+	window.onload=function(){
+		var proNames=["抽奖一","抽奖二","抽奖三","抽奖四","抽奖五","抽奖6","抽奖7","抽奖8","抽奖9",
+					"抽奖10","抽奖11","抽奖12","抽奖13","抽奖14","抽奖15","抽奖16","抽奖17","抽奖18"];
+		var allPro=document.getElementById("proTable");
+			for(var i=0;i<proNames.length;i++){
+				var proAdd=document.createElement("div");
+				var pic=document.createElement("img");
+				var cont=document.createElement("a");
+				cont.innerHTML=proNames[i];
+				cont.href="#"
+				pic.className="proPic";
+				pic.src="images/background/proPic.png";
+				proAdd.setAttribute("class", "ProItem");
+				proAdd.appendChild(pic);
+				var buju=document.createElement("br");
+				proAdd.appendChild(buju);
+				proAdd.appendChild(cont);
+				allPro.appendChild(proAdd);
+				}
+				
+		var liNames=["张飞","关羽","曹植","曹操","吕布","诸葛亮","周瑜","小乔","王一","李二","唐三","冯四","宋五","马六","貂蝉","橙橙"];	
+		var ols=document.getElementById("breakNewsList");
+		for(var i=0;i<liNames.length;i++){
+			var li=document.createElement("li");
+			var addLiA=document.createElement("a");
+			//addLiA.setAttribute("target","_blank");
+			addLiA.setAttribute("href","#");
+			addLiA.innerHTML=liNames[i];
+			li.appendChild(addLiA);
+			ols.appendChild(li);
+		}
+		
+		
+	}
+</script>
+
+
+
+</head>
+<body>
+	
+	<div class="top">
+                   <center> 
+                    <ul>
+                    <li><a href ="#"><b>主页面</b></a></li>
+                    <li><a href="choiceLottory/index.html">空</a></li>
+                    <li><a href="#">空</a></li>
+                    <li><a href="#"><b>空</b></a></li>
+                    <li><a href="#">空</a></li>
+                    <li>
+                        <a href="#">空</a>
+                        <ul>
+                            <li><a href="#">二级菜单</a></li>
+                            <li><a href="#">二级菜单</a></li>
+                        </ul>
+                    </li>        
+                      </ul>
+                    </center>      
+	</div>
+	
+	<div id="proTable" onload="unfoldTa()">
+		<!--
+		<div class="ProItem">
+			<img class="proPic" src="images/background/proPic.png" /><br />
+			<a href="#">活动</a>
+			
+		</div>
+		
+		-->
+	</div>
+	
+	<div class="scrolltext" >
+		<div id="choujiangHead">
+			<span>参与抽奖结果</span>
+		</div>
+		<div id="breakNews">
+			<ol id="breakNewsList" class="list6">
+				<!--
+				<li><a target=_blank href="http://www.xwcms.net">google</a></li>
+				<li><a target=_blank href="http://www.xwcms.net">新浪</a></li>
+				-->
+			</ol>
+		</div>
+		<div class="part">
+			<span id="pre2"><img src="mainFaceSourse/images/h1-img03.gif" /></span><span id="next2"><img src="mainFaceSourse/images/h1-img02.gif" /></span>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="mainFaceSourse/js/ScrollText.js" ></script>
+	<script type="text/javascript">
+	var scroll2 = new ScrollText("breakNewsList","pre2","next2",true,50,true);
+	scroll2.LineHeight = 63;
+	</script>
+	
+	
+		<canvas id="canvas"></canvas>
+		<script src='js/backgroundjs/js/delaunator.min.js'></script>
+		<script  src="js/backgroundjs/js/index.js"></script>
+		
+		
+</body>
+
+</html>
+
+
